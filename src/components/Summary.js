@@ -22,7 +22,7 @@ const Summary = ({ formData, prevStep, setStep, setFormData }) => {
     });
 
     try {
-      const res = await fetch('https://backend-edvinbweb-comps-projects-9855a82b.vercel.app/api/save-profile', {
+      const res = await fetch('https://backend-mi21t0f5k-comps-projects-9855a82b.vercel.app/api/save-profile', {
         method: 'POST',
         body: fd,
       });
