@@ -22,7 +22,7 @@ const Summary = ({ formData, prevStep, setStep, setFormData }) => {
     });
 
     try {
-      const res = await fetch('http://localhost:5000/api/save-profile', {
+      const res = await fetch('https://back-2yvw4c0n1-comps-projects-9855a82b.vercel.app/api/save-profile', {
         method: 'POST',
         body: fd,
       });

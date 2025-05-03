@@ -6,7 +6,7 @@ const Step3Preferences = ({ formData, updateForm, nextStep, prevStep, resetAddre
   const [cities, setCities] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/countries')
+    fetch('https://back-2yvw4c0n1-comps-projects-9855a82b.vercel.app/api/countries')
       .then(res => res.json())
       .then(setCountries)
       .catch(err => console.error('Error fetching countries:', err));
@@ -14,7 +14,7 @@ const Step3Preferences = ({ formData, updateForm, nextStep, prevStep, resetAddre
 
   useEffect(() => {
     if (formData.country) {
-      fetch(`http://localhost:5000/api/states/${formData.country}`)
+      fetch(`https://back-2yvw4c0n1-comps-projects-9855a82b.vercel.app/api/states/${formData.country}`)
         .then(res => res.json())
         .then(setStates)
         .catch(err => console.error('Error fetching states:', err));
@@ -26,7 +26,7 @@ const Step3Preferences = ({ formData, updateForm, nextStep, prevStep, resetAddre
 
   useEffect(() => {
     if (formData.state) {
-      fetch(`http://localhost:5000/api/cities/${formData.state}`)
+      fetch(`https://back-2yvw4c0n1-comps-projects-9855a82b.vercel.app/api/cities/${formData.state}`)
         .then(res => res.json())
         .then(setCities)
         .catch(err => console.error('Error fetching cities:', err));
