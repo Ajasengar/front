@@ -37,7 +37,7 @@ const Summary = ({ formData, prevStep, setStep, setFormData }) => {
             username: '',
             usernameAvailable: null,
             usernameStatus: '',
-            currentPassword: ' ',
+            currentPassword: '',
             newPassword: '',
             profession: '',
             companyName: '',
