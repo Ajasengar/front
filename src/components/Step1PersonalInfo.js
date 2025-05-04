@@ -16,10 +16,9 @@ const Step1PersonalInfo = ({ formData, updateForm, nextStep }) => {
   };
 
   const checkUsername = async () => {
-   
     const res = await fetch(`/api/username-check?username=${formData.username}`);
     const data = await res.json();
-    
+
     if (data.available) {
       setUsernameStatus('Username is available');
       updateForm('usernameAvailable', true);
@@ -40,18 +39,32 @@ const Step1PersonalInfo = ({ formData, updateForm, nextStep }) => {
       alert('Please complete all required fields');
       return;
     }
+
+    // ✅ New password validation
+    const newPasswordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+
+    if (formData.newPassword) {
+      if (!newPasswordRegex.test(formData.newPassword)) {
+        alert('New password must be at least 8 characters long, contain at least 1 number and 1 special character');
+        return;
+      }
+      if (!formData.currentPassword) {
+        alert('Please enter current password to change your password');
+        return;
+      }
+    }
+
     nextStep();
   };
 
   useEffect(() => {
-    
     if (formData.username.length < 4 || formData.username.length > 20) {
       setUsernameStatus('Username must be between 4-20 characters');
-      updateForm('usernameAvailable', false); 
+      updateForm('usernameAvailable', false);
     } else if (formData.username.length > 0) {
-      checkUsername(); 
+      checkUsername();
     } else {
-      setUsernameStatus(null); 
+      setUsernameStatus(null);
       updateForm('usernameAvailable', null);
     }
   }, [formData.username]);
@@ -80,7 +93,7 @@ const Step1PersonalInfo = ({ formData, updateForm, nextStep }) => {
       </div>
 
       <div>
-        <label>Current Password:</label>
+        <label>Current Password (required if changing password):</label>
         <input
           type="password"
           value={formData.currentPassword}
@@ -89,11 +102,13 @@ const Step1PersonalInfo = ({ formData, updateForm, nextStep }) => {
       </div>
 
       <div>
-        <label>New Password:</label>
+        <label>New Password (min 8 chars, 1 special char, 1 number):</label>
         <input
           type="password"
           value={formData.newPassword}
           onChange={e => updateForm('newPassword', e.target.value)}
+          pattern="^(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$"
+          title="At least 8 characters, 1 number, 1 special character"
         />
         <PasswordStrengthMeter password={formData.newPassword} />
       </div>
